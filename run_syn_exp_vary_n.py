@@ -8,11 +8,8 @@ import argparse
 
 
 # Create the parser
-parser = argparse.ArgumentParser(description="parameters'reproduce' and 'num_runs'.")
+parser = argparse.ArgumentParser(description="parameter 'num_runs'.")
 
-# Add the 'reproduce' argument as a simple string
-parser.add_argument('--reproduce', type=int, required=False, default=0,
-                    help="Reproduce mode (use 1 to enable, 0 to disable)")
 
 # Add the 'num_runs' argument as an integer without explicit positivity check
 parser.add_argument('--num_runs', type=int, required=True,
@@ -37,7 +34,7 @@ accuracy_results_sl2= {s: [] for s in s_values}
 for s in s_values:
     print(f"Running experiments for s={s}")
     for _ in range(num_runs):
-        accuracy, accuracy_direct, accuracy_direct2 = run_exp(n_samples_downstream=s, reproduce = int(args.reproduce))
+        accuracy, accuracy_direct, accuracy_direct2 = run_exp(n_samples_downstream=s)
         accuracy_results[s].append(accuracy)
         accuracy_results_sl[s].append(accuracy_direct)
         accuracy_results_sl2[s].append(accuracy_direct2)
