@@ -1,6 +1,8 @@
 
 Implementation of the experiments from the work 
+
 "Low-Rank Approximation of Structural Redundancy for Self-Supervised Learning" by Kang Du and Yu Xiang.
+
 
 > Synthetic Data Experiment
 
