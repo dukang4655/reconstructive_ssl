@@ -1,9 +1,8 @@
 import numpy as np
 
 
-def generate_syn_data(n=100, s=1, d1=10, d2=20, p=3, reproduce=0 ):
-    if reproduce == 1:
-        np.random.seed(66)
+def generate_syn_data(n=100, s=1, d1=10, d2=20, p=3):
+
 
     X1 = np.random.randn(n, d1)
     norm_X1 = np.linalg.norm(X1, axis=1)
