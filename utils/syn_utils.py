@@ -92,12 +92,12 @@ def evaluate_model(model, X_test, Y_test, device='cpu'):
     return accuracy
 
 
-def run_exp(n_samples_pretext=10000, s=5, d1=10, d2=20, p=3, n_samples_downstream=300, n_samples_test=1000, epochs=10, reproduce =0):
+def run_exp(n_samples_pretext=10000, s=5, d1=10, d2=20, p=3, n_samples_downstream=300, n_samples_test=1000, epochs=10):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     # Data Generation
 
-    X1, X2, Y_one_hot, _ = generate_syn_data(n=n_samples_pretext, s=s, d1=d1, d2=d2, p=p, reproduce= reproduce)
+    X1, X2, Y_one_hot, _ = generate_syn_data(n=n_samples_pretext, s=s, d1=d1, d2=d2, p=p)
 
     # Split the data for the pretext task
     X1_train, X1_val, X2_train, X2_val = train_test_split(X1, X2, test_size=0.2, random_state=66)
@@ -110,7 +110,7 @@ def run_exp(n_samples_pretext=10000, s=5, d1=10, d2=20, p=3, n_samples_downstrea
                                         batch_size=32, device=device)
 
     X1_downstream, X2_downstream, Y_downstream_one_hot, _ = generate_syn_data(n=n_samples_downstream, s=s, d1=d1, d2=d2,
-                                                                          p=p, reproduce = reproduce)
+                                                                          p=p)
 
     f_X1_downstream = model_predict(model_pretext, X1_downstream, device)
 
@@ -138,7 +138,7 @@ def run_exp(n_samples_pretext=10000, s=5, d1=10, d2=20, p=3, n_samples_downstrea
 
     # generate test data
 
-    X1_test, X2_test, Y_test_one_hot, Y_test = generate_syn_data(n=n_samples_test, s=s, d1=d1, d2=d2, p=p, reproduce = reproduce)
+    X1_test, X2_test, Y_test_one_hot, Y_test = generate_syn_data(n=n_samples_test, s=s, d1=d1, d2=d2, p=p)
 
     X1_test_torch = torch.tensor(X1_test, dtype=torch.float32)
     Y_test_torch = torch.tensor(Y_test, dtype=torch.long)  # Assuming Y_test are integer labels
